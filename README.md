@@ -24,6 +24,9 @@ of the real robot grasping experiment is not included.
 Based on the Dense Fusion model, the network will take as input the densefeatures provided by the wichbone of the denseF architecture. Then rather than optimizing
 the distance between the model with the predicted [R|t] and the GT, we will try to use Rotation invariant and to do our optimization over the t angle. 
 
+The main part of the work is the definition of a new network that output Only a prediction for t and c. Then the New loss is defined in `lib/LossTranslation/` and
+the option inside the training parametter are alowing us to play with the original code or the Translation one. 
+
 ## Requirements
 
 * Python 2.7/3.5/3.6 (If you want to use Python2.7 to run this repo, please rebuild the `lib/knn/` (with PyTorch 0.4.1).)
