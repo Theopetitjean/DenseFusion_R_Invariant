@@ -1,0 +1,7 @@
+numpy
+torch==0.4.1
+plyfile
+scipy
+pyyaml
+logging
+matplotlib
