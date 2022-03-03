@@ -133,7 +133,7 @@ class PoseNet(nn.Module):
 
 class PoseNetTranslation(nn.Module):
     def __init__(self, num_points, num_obj):
-        super(PoseNet, self).__init__()
+        super(PoseNetTranslation, self).__init__()
         self.num_points = num_points
         self.cnn = ModifiedResnet()
         self.feat = PoseNetFeat(num_points)
@@ -174,6 +174,7 @@ class PoseNetTranslation(nn.Module):
         cx = F.relu(self.conv3_c(cx))
 
         tx = self.conv4_t(tx).view(bs, self.num_obj, 3, self.num_points)
+        print(f'tx = {tx} \n ')
         cx = torch.sigmoid(self.conv4_c(cx)).view(bs, self.num_obj, 1, self.num_points)
 
         b = 0
@@ -181,7 +182,9 @@ class PoseNetTranslation(nn.Module):
         out_cx = torch.index_select(cx[b], 0, obj[b])
 
         out_cx = out_cx.contiguous().transpose(2, 1).contiguous()
+        print(f'out_cx = {out_cx} \n')
         out_tx = out_tx.contiguous().transpose(2, 1).contiguous()
+        print(f'out_tx = {out_tx} \n')
 
         return out_tx, out_cx, emb.detach()
 
